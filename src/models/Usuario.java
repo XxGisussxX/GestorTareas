@@ -1,26 +1,33 @@
-package models;
+package com.gestortareas.model;
 
-import java.util.ArrayList;
-import java.util.List;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class Usuario {
     private String nombre;
-    private List<Tarea> tareas;
+    private ObservableList<Tarea> tareas;
+    private Calendario calendario;
 
     public Usuario(String nombre) {
         this.nombre = nombre;
-        this.tareas = new ArrayList<>();
+        this.tareas = FXCollections.observableArrayList();
+        this.calendario = new Calendario();
     }
 
     public void agregarTarea(Tarea tarea) {
         tareas.add(tarea);
+        calendario.agregarTarea(tarea);
     }
 
-    public List<Tarea> getTareas() {
+    public ObservableList<Tarea> getTareas() {
         return tareas;
     }
 
     public String getNombre() {
         return nombre;
+    }
+    
+    public Calendario getCalendario() {
+        return calendario;
     }
 }

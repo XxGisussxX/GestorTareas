@@ -1,56 +1,71 @@
 package models;
 
+import java.sql.Date;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class Calendario {
-    private  List<Tarea> tareas;
-    // Builder pattern
+    private ObservableList<Tarea> tareas;
+    
     public Calendario() {
-        this.tareas = new ArrayList<>();
+        this.tareas = FXCollections.observableArrayList();
     }
-    // Get elements of the array
-    public List<Tarea> getTareas() {
+    
+    public ObservableList<Tarea> getTareas() {
         return tareas;
     }
-
-    // Add homework
+    
     public void agregarTarea(Tarea tarea) {
         tareas.add(tarea);
     }
-
-    // Search homework for name or ID
-    public List<Tarea> buscarTarea(String nombre, int id) {
-        List<Tarea> resultados = new ArrayList<>();
-        for (Tarea tarea : tareas) {
-            if (tarea.getNombre().toLowerCase().contains(nombre.toLowerCase()) || tarea.getId() == id) {
-                resultados.add(tarea);
-            }
+    
+    public List<Tarea> buscarTarea(String busqueda, int id) {
+        if (busqueda == null && id == -1) {
+            return new ArrayList<>(tareas);
         }
-        return resultados;
+        
+        return tareas.stream()
+                .filter(tarea -> (busqueda != null && tarea.getNombre().toLowerCase().contains(busqueda.toLowerCase())) 
+                              || (id != -1 && tarea.getId() == id))
+                .collect(Collectors.toList());
     }
-
-    // Modify homework for name or ID
-    public boolean modificarTarea(int id, String nuevoNombre, String nuevaDescripcion) {
+    
+    public boolean modificarTarea(int id, String nuevoNombre, String nuevaDescripcion, 
+                                 Date nuevaFecha, TipoPrioridad nuevaPrioridad) {
         for (Tarea tarea : tareas) {
             if (tarea.getId() == id) {
                 tarea.setNombre(nuevoNombre);
                 tarea.setDescripcion(nuevaDescripcion);
+                if (nuevaFecha != null) {
+                    tarea.setFecha(nuevaFecha);
+                }
+                if (nuevaPrioridad != null) {
+                    tarea.setPrioridad(nuevaPrioridad);
+                }
                 return true;
             }
         }
-        return false; // No se encontró la tarea
+        return false;
     }
-
-    // Delete homework for name or ID
+    
     public boolean eliminarTarea(int id) {
         return tareas.removeIf(tarea -> tarea.getId() == id);
     }
-
-    // Show all homeworks
-    public void mostrarTareas() {
-        for (Tarea tarea : tareas) {
-            System.out.println("ID: " + tarea.getId() + " - Nombre: " + tarea.getNombre() + " - Descripción: " + tarea.getDescripcion());
-        }
+    
+    public List<Tarea> getTareasPorDia(DayOfWeek dia) {
+        return tareas.stream()
+                .filter(tarea -> tarea.getDiaSemana() == dia)
+                .collect(Collectors.toList());
+    }
+    
+    public List<Tarea> getTareasPorPrioridad(TipoPrioridad prioridad) {
+        return tareas.stream()
+                .filter(tarea -> tarea.getPrioridad() == prioridad)
+                .collect(Collectors.toList());
     }
 }
