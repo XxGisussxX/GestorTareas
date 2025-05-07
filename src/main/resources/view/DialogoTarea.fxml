@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx/17"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="controller.DialogoTareaController"
+      spacing="10" >
+    <padding>
+        <Insets top="20.0" right="20.0" bottom="20.0" left="20.0" />
+    </padding>
+
+    <children>
+        <Label text="Tarea" styleClass="titulo-dialogo"/>
+
+        <GridPane hgap="10" vgap="10">
+            <columnConstraints>
+                <ColumnConstraints prefWidth="120"/>
+                <ColumnConstraints prefWidth="300"/>
+            </columnConstraints>
+
+            <rowConstraints>
+                <RowConstraints minHeight="30"/>
+                <RowConstraints minHeight="80"/>
+                <RowConstraints minHeight="30"/>
+                <RowConstraints minHeight="30"/>
+                <RowConstraints minHeight="30"/>
+                <RowConstraints minHeight="30"/>
+            </rowConstraints>
+
+            <children>
+                <Label text="Nombre:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                <TextField fx:id="txtNombre" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                <Label text="Descripción:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                <TextArea fx:id="txtDescripcion" prefRowCount="3" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                <Label text="Fecha:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                <DatePicker fx:id="datePicker" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+                <Label text="Hora inicio:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                <ComboBox fx:id="comboHoraInicio" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+                <Label text="Hora fin:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+                <ComboBox fx:id="comboHoraFin" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+
+                <Label text="Prioridad:" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+                <ComboBox fx:id="comboPrioridad" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+            </children>
+        </GridPane>
+
+        <HBox spacing="10" alignment="CENTER_RIGHT">
+            <Button fx:id="btnGuardar" text="Guardar"/>
+            <Button fx:id="btnCancelar" text="Cancelar"/>
+        </HBox>
+    </children>
+</VBox>

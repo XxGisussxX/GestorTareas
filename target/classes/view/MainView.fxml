@@ -7,8 +7,8 @@
 
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.gestortareas.controller.MainController"
-            stylesheets="/styles/styles.css"
+            fx:controller="controller.MainController"
+            stylesheets="@styles.css"
             prefHeight="600.0" prefWidth="800.0">
     <top>
         <VBox alignment="CENTER">

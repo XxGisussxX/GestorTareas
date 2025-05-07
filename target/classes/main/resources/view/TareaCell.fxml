@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<HBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="controller.TareaCellController"
+      styleClass="tarea-cell"
+      alignment="CENTER_LEFT"
+      spacing="10">
+    <padding>
+        <Insets top="8" right="8" bottom="8" left="8"/>
+    </padding>
+
+    <Label fx:id="nombreTarea" styleClass="tarea-nombre" HBox.hgrow="ALWAYS" />
+
+    <HBox alignment="CENTER_RIGHT" spacing="5" HBox.hgrow="NEVER">
+        <Button fx:id="btnEditar" text="✏️" styleClass="icon-button" onAction="#handleEditar" />
+        <Button fx:id="btnEliminar" text="🗑️" styleClass="icon-button" onAction="#handleEliminar" />
+    </HBox>
+</HBox>

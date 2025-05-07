@@ -1,3 +1,5 @@
+package controller;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -8,8 +10,8 @@ public class Main extends Application {
     
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/com/gestortareas/view/MainView.fxml"));
-        
+        Parent root = FXMLLoader.load(getClass().getResource("/view/MainView.fxml"));
+
         Scene scene = new Scene(root);
         
         primaryStage.setTitle("Gestor de Tareas");

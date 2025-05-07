@@ -1,0 +1,113 @@
+/* Estilos generales */
+.root {
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+    -fx-background-color: #f5f5f5;
+}
+
+/* Título de la aplicación */
+.title-label {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-padding: 15px;
+    -fx-text-fill: #333333;
+}
+
+/* Panel de tareas */
+.task-panel {
+    -fx-background-color: white;
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+    -fx-border-color: #e0e0e0;
+    -fx-border-width: 1px;
+    -fx-padding: 10px;
+}
+
+.panel-title {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+/* Botón de agregar */
+.add-button {
+    -fx-background-color: #40a9ff;
+    -fx-text-fill: white;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 50%;
+    -fx-min-width: 40px;
+    -fx-min-height: 40px;
+    -fx-max-width: 40px;
+    -fx-max-height: 40px;
+}
+
+.add-button:hover {
+    -fx-background-color: #1890ff;
+}
+
+/* Grid del calendario */
+.calendar-grid {
+    -fx-background-color: white;
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+    -fx-border-color: #e0e0e0;
+    -fx-border-width: 1px;
+    -fx-grid-lines-visible: true;
+}
+
+/* Encabezados de los días */
+.day-header {
+    -fx-alignment: center;
+    -fx-font-weight: bold;
+    -fx-padding: 10px;
+    -fx-background-color: #f0f0f0;
+    -fx-text-fill: #333333;
+}
+
+/* Celdas de tareas */
+.tarea-cell {
+    -fx-border-color: transparent;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-padding: 8px;
+}
+
+.tarea-nombre {
+    -fx-font-size: 14px;
+}
+
+/* Prioridades de tareas */
+.prioridad-importante {
+    -fx-background-color: #5CB85C;
+    -fx-text-fill: white;
+}
+
+.prioridad-pendiente {
+    -fx-background-color: #F0AD4E;
+    -fx-text-fill: white;
+}
+
+.prioridad-urgente {
+    -fx-background-color: #D9534F;
+    -fx-text-fill: white;
+}
+
+/* Botones de acción */
+.icon-button {
+    -fx-background-color: transparent;
+    -fx-padding: 3px;
+    -fx-cursor: hand;
+}
+
+.icon-button:hover {
+    -fx-background-color: #f0f0f0;
+}
+
+.button-primary {
+    -fx-background-color: #1890ff;
+    -fx-text-fill: white;
+}
+
+.button-primary:hover {
+    -fx-background-color: #40a9ff;
+}

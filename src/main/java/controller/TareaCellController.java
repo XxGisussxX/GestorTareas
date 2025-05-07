@@ -1,10 +1,9 @@
-package com.gestortareas.controller;
+package controller;
 
-import com.gestortareas.model.Tarea;
+import models.Tarea;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.stage.Stage;
 
 public class TareaCellController {
     

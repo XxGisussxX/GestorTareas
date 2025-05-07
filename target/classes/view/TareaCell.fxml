@@ -6,7 +6,7 @@
 
 <HBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.gestortareas.controller.TareaCellController"
+      fx:controller="controller.TareaCellController"
       styleClass="tarea-cell"
       alignment="CENTER_LEFT"
       spacing="10">

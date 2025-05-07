@@ -9,11 +9,8 @@ import java.sql.Time;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -24,7 +21,6 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -116,18 +112,18 @@ public class MainController {
     }
 
     private void inicializarGridCalendario() {
-        // Crear celdas para cada día y hora
-        for (int columna = 0; columna < 5; columna++) {  // 5 días de la semana
-            for (int fila = 1; fila < 7; fila++) {  // 6 filas para las horas
+        // Crear celdas para cada día y hora (5 días x 6 horas)
+        for (int columna = 0; columna < 5; columna++) {
+            for (int fila = 1; fila < 7; fila++) {
                 Pane celda = new Pane();
                 celda.getStyleClass().add("celda-calendario");
 
-                // Calcular el índice único para esta celda (columna, fila)
+                // Guardar la referencia a la celda
                 int indice = columna * 10 + fila;
                 celdasCalendario.put(indice, celda);
 
-                // Añadir a la cuadrícula
-                gridCalendario.add(celda, columna + 1, fila);
+                // Añadir a la cuadrícula (ajustar los índices según tu FXML)
+                gridCalendario.add(celda, columna, fila);
             }
         }
 
@@ -168,27 +164,44 @@ public class MainController {
 
             // Verificar si la tarea está en la semana actual
             if (diaSemana >= 0 && diaSemana < 5) {
-                // Convertir la hora de la tarea a un índice de fila (9:00 = 1, 14:00 = 6)
-                int hora = tarea.getHora().toLocalTime().getHour();
-                int fila = hora - 8; // Mapear 9 -> 1, 10 -> 2, etc.
+                // Convertir la hora de inicio de la tarea a un índice de fila
+                int horaInicio = tarea.getHoraInicio().toLocalTime().getHour();
+                int horaFin = tarea.getHoraFin() != null ?
+                        tarea.getHoraFin().toLocalTime().getHour() :
+                        horaInicio + 1; // Si no hay hora fin, asumimos una hora de duración
 
-                if (fila >= 1 && fila <= 6) {
-                    int indice = diaSemana * 10 + fila;
-                    Pane celda = celdasCalendario.get(indice);
+                // Mapear las horas a índices de fila (9:00 = 1, 10:00 = 2, etc.)
+                int filaInicio = horaInicio - 8; // Mapear 9 -> 1, 10 -> 2, etc.
+                int filaFin = horaFin - 8;
 
-                    if (celda != null) {
-                        // Crear una etiqueta para la tarea
-                        Label lblTarea = new Label(tarea.getNombre());
+                // Limitamos al rango visible en el calendario
+                filaInicio = Math.max(1, Math.min(6, filaInicio));
+                filaFin = Math.max(1, Math.min(6, filaFin));
 
-                        // Aplicar estilo según prioridad
-                        switch (tarea.getPrioridad()) {
-                            case IMPORTANTE -> lblTarea.getStyleClass().add("tarea-importante");
-                            case PENDIENTE -> lblTarea.getStyleClass().add("tarea-pendiente");
-                            case URGENTE -> lblTarea.getStyleClass().add("tarea-urgente");
+                // Crear una etiqueta para la tarea
+                Label lblTarea = new Label(tarea.getNombre());
+
+                // Aplicar estilo según prioridad
+                switch (tarea.getPrioridad()) {
+                    case IMPORTANTE -> lblTarea.getStyleClass().add("tarea-importante");
+                    case PENDIENTE -> lblTarea.getStyleClass().add("tarea-pendiente");
+                    case URGENTE -> lblTarea.getStyleClass().add("tarea-urgente");
+                }
+
+                // Añadir etiqueta a la celda de inicio
+                int indiceInicio = diaSemana * 10 + filaInicio;
+                Pane celdaInicio = celdasCalendario.get(indiceInicio);
+                if (celdaInicio != null) {
+                    celdaInicio.getChildren().add(lblTarea);
+                    celdaInicio.getStyleClass().add("tiene-tarea");
+
+                    // Si la tarea abarca múltiples horas, marcar las celdas adicionales
+                    for (int fila = filaInicio + 1; fila <= filaFin; fila++) {
+                        int indice = diaSemana * 10 + fila;
+                        Pane celda = celdasCalendario.get(indice);
+                        if (celda != null) {
+                            celda.getStyleClass().add("tiene-tarea-continuacion");
                         }
-
-                        celda.getChildren().add(lblTarea);
-                        celda.getStyleClass().add("tiene-tarea");
                     }
                 }
             }
@@ -216,14 +229,16 @@ public class MainController {
         tarea1.setNombre("Reunión de equipo");
         tarea1.setDescripcion("Discutir avances del proyecto");
         tarea1.setFecha(Date.valueOf(hoy));
-        tarea1.setHora(Time.valueOf("10:00:00"));
+        tarea1.setHoraInicio(Time.valueOf("10:00:00"));
+        tarea1.setHoraFin(Time.valueOf("11:00:00"));
         tarea1.setPrioridad(TipoPrioridad.IMPORTANTE);
 
         Tarea tarea2 = new Tarea();
         tarea2.setNombre("Entrega de informe");
         tarea2.setDescripcion("Preparar informe de avance");
         tarea2.setFecha(Date.valueOf(hoy.plusDays(1)));
-        tarea2.setHora(Time.valueOf("14:00:00"));
+        tarea2.setHoraInicio(Time.valueOf("14:00:00"));
+        tarea2.setHoraFin(Time.valueOf("15:00:00"));
         tarea2.setPrioridad(TipoPrioridad.URGENTE);
 
         calendario.getTareas().addAll(tarea1, tarea2);
@@ -231,10 +246,12 @@ public class MainController {
 
     public void abrirDialogoTarea(Tarea tareaExistente) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/EditarTarea.fxml"));
+            // Usando el nombre correcto del archivo FXML según el PDF
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/DialogoTarea.fxml"));
             Parent root = loader.load();
 
-            EditarTareaController controller = loader.getController();
+            // Usando el nombre correcto del controlador según el PDF
+            DialogoTareaController controller = loader.getController();
             controller.setCalendario(calendario);
 
             if (tareaExistente != null) {

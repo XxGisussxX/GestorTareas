@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controller.MainController"
+            stylesheets="@styles.css"
+            prefHeight="600.0" prefWidth="800.0">
+    <top>
+        <VBox alignment="CENTER">
+            <Label text="GESTOR TAREAS" styleClass="title-label">
+                <font>
+                    <Font name="System Bold" size="24.0"/>
+                </font>
+            </Label>
+        </VBox>
+    </top>
+
+    <center>
+        <HBox spacing="10.0" alignment="CENTER">
+            <padding>
+                <Insets top="10.0" right="10.0" bottom="10.0" left="10.0"/>
+            </padding>
+
+            <!-- Panel de tareas -->
+            <VBox spacing="10.0" styleClass="task-panel" HBox.hgrow="ALWAYS" maxWidth="300.0">
+                <HBox alignment="CENTER_LEFT" spacing="10.0">
+                    <Button fx:id="btnAgregarTarea" text="+" styleClass="add-button"/>
+                    <Label text="Tareas" styleClass="panel-title"/>
+                </HBox>
+
+                <ListView fx:id="listViewTareas" VBox.vgrow="ALWAYS"/>
+            </VBox>
+
+            <!-- Calendario semanal -->
+            <GridPane fx:id="gridCalendario" styleClass="calendar-grid" HBox.hgrow="ALWAYS">
+                <!-- Encabezados de días de la semana -->
+                <columnConstraints>
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                </columnConstraints>
+
+                <rowConstraints>
+                    <RowConstraints vgrow="SOMETIMES" prefHeight="30.0" />
+                    <RowConstraints vgrow="SOMETIMES" minHeight="10.0" prefHeight="30.0" />
+                    <RowConstraints vgrow="SOMETIMES" minHeight="10.0" prefHeight="30.0" />
+                    <RowConstraints vgrow="SOMETIMES" minHeight="10.0" prefHeight="30.0" />
+                    <RowConstraints vgrow="SOMETIMES" minHeight="10.0" prefHeight="30.0" />
+                    <RowConstraints vgrow="SOMETIMES" minHeight="10.0" prefHeight="30.0" />
+                    <RowConstraints vgrow="SOMETIMES" minHeight="10.0" prefHeight="30.0" />
+                </rowConstraints>
+
+                <!-- Encabezados de los días -->
+                <Label text="LUNES" styleClass="day-header" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                <Label text="MARTES" styleClass="day-header" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                <Label text="MIÉRCOLES" styleClass="day-header" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+                <Label text="JUEVES" styleClass="day-header" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+                <Label text="VIERNES" styleClass="day-header" GridPane.columnIndex="4" GridPane.rowIndex="0" />
+            </GridPane>
+        </HBox>
+    </center>
+
+    <bottom>
+        <HBox alignment="CENTER_RIGHT" spacing="10.0">
+            <padding>
+                <Insets top="10.0" right="10.0" bottom="10.0" left="10.0"/>
+            </padding>
+            <Label fx:id="statusLabel" HBox.hgrow="ALWAYS" />
+        </HBox>
+    </bottom>
+</BorderPane>
